@@ -31,12 +31,29 @@ class _ChatPageState extends State<ChatPage> {
         print("Error adding message: $error");
       }
     }
-    print("message list is ${_messages.isNotEmpty ? _messages[0].message : "No messages"}");
 
-    final model= GenerativeModel(model: 'gemini-pro', apiKey: apiKey);
-        final content= Content.text(userMessage);
-        final response= await model.generateContent([content]);
-        print("response from gemini was:  ${response.text}");
+
+    final model= GenerativeModel(model: 'gemini-pro', apiKey: apiKey,generationConfig: GenerationConfig(maxOutputTokens: 100));
+    final chat = model.startChat(history: [
+            Content.text('hi'),
+            Content.model([TextPart('Hi there! 👋 How can I help brighten your day? �')]),
+            Content.text('I\'m sad'),
+            Content.model([TextPart('Oh no, I\'m so sorry to hear that you\'re feeling sad. 😔 Would you like to talk about what\'s making you feel this way? Sometimes just expressing what\'s going on can help.\n If you\'d rather not talk about it, that\'s totally okay too! We can find another way to lift your spirits. Maybe a funny video, a calming breathing exercise, or some inspiring quotes? Just let me know what you need. ❤')]),
+      Content.text(' what is your name'),
+      Content.model([TextPart('My name is Musa! It means "Moses" in Arabic and is said to signify someone who is drawn from the water, just like baby Moses was from the Nile River. I think it\'s quite fitting because I hope to be a source of support and comfort, like a safe harbor in a storm. 😌 What\'s your name?')]),
+      Content.text('My name is prajju'),
+      Content.model([TextPart(' Prajju, that\'s a lovely name! 😊 It has a nice ring to it. Does it have a special meaning?\n And just to be sure, is it pronounced as "Pra-ju" or "Pra-joo"? I want to make sure I say it right. �')]),
+      Content.text(' it\'s double j u'),
+      Content.model([TextPart('Prajj-u, got it! 👍 Thank you for letting me know. \n So, Prajj-u, what would you like to do today? Is there anything I can do to help lift your spirits a bit?')]),
+
+    ]);
+    var content,response;
+
+       content = Content.text(userMessage);
+       response = await chat.sendMessage(content);
+
+
+    print("response from gemini was:  ${response.text}");
     if (response.text!=null) {
       try {
         setState(() {
@@ -45,6 +62,10 @@ class _ChatPageState extends State<ChatPage> {
       } catch (error) {
         print("Error adding message: $error");
       }
+    }
+    else
+    {
+      print(response);
     }
   }
 
