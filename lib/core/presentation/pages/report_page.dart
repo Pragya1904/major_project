@@ -5,6 +5,7 @@ import 'package:major_project/appwrite/auth_api.dart';
 import 'package:major_project/core/presentation/widgets/my_bar_graph.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
+import '../../../constants.dart';
 import 'report_generation.dart';
 
 class ReportPage extends StatefulWidget {
@@ -105,6 +106,7 @@ class _ReportPageState extends State<ReportPage> {
               children: [
                 Column(
                     children: [
+                      Text('Your mood score!!',style: TextStyle(color: canvasColor,fontSize: 20) ,),
                       Stack(
                         alignment: Alignment.center,
                         children: [
