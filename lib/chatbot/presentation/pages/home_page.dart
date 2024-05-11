@@ -72,11 +72,11 @@ class _MyHomePageState extends State<MyHomePage> {
                       builder: (context,child){
                         switch(_controller.selectedIndex){
                           case 0: _key.currentState?.closeDrawer();
-                          return JournalListPage();
+                          return ReportPage();
                           case 1: _key.currentState?.closeDrawer();
                           return ChatPage();
                           case 2: _key.currentState?.closeDrawer();
-                          return ReportPage();
+                          return JournalListPage();
                           case 3: _key.currentState?.closeDrawer();
                           return Center(
                             child: Text('Theme',style: TextStyle(color: Colors.white,fontSize: 40),),
