@@ -207,6 +207,7 @@ class _ChatPageState extends State<ChatPage> {
     width=MediaQuery.of(context).size.height;
 
     return Scaffold(
+
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Provider.of<AuthAPI>(context, listen: false).scrollToBottom();

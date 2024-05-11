@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:major_project/chatbot/presentation/pages/chat_page.dart';
 import 'package:major_project/chatbot/presentation/pages/journal_list_page.dart';
 import 'package:major_project/chatbot/presentation/pages/report_page.dart';
+import 'package:provider/provider.dart';
 import 'package:sidebarx/sidebarx.dart';
 
-const primaryColor = Color(0xFF6252DA);
-const canvasColor = Color(0xFF2E2E48);
-const scaffoldBackgroundColor = Color(0xFF7777B6);
+import '../../../appwrite/auth_api.dart';
+import '../../../constants.dart';
+import 'login_page.dart';
+
+
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -79,11 +82,37 @@ class _MyHomePageState extends State<MyHomePage> {
                           return ReportPage();
                           case 3: _key.currentState?.closeDrawer();
                           return Center(
-                            child: Text('Theme',style: TextStyle(color: Colors.white,fontSize: 40),),
+                            child: Text('Theme',style: TextStyle(color: canvasColor,fontSize: 40),),
+                          );
+                          case 4: _key.currentState?.closeDrawer();
+                          return Center(
+                            child: AlertDialog(
+                              title: const Text("Confirm Sign Out",style: TextStyle(color: canvasColor,fontSize: 20),),
+                              content: const Text('Are you sure you want to sign out?',style: TextStyle(color: canvasColor,fontSize: 12)),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Provider.of<AuthAPI>(context, listen: false).signOut();
+                                      Navigator.pushAndRemoveUntil(context,MaterialPageRoute(builder: (context) => LoginPage()) , (route) => false);
+                                    },
+                                    child: const Text('Yes',style: TextStyle(color: canvasColor,fontSize: 15)),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.pushReplacement<void, void>(
+                                          context,
+                                          MaterialPageRoute<void>(
+                                          builder: (BuildContext context) => const HomePage(),
+                                      ));
+                                    },
+                                    child: const Text('No',style: TextStyle(color: canvasColor,fontSize: 15)),
+                                  ),
+                                ]
+                            )
                           );
                           default:
                             return Center(
-                              child: Text('Home',style: TextStyle(color: Colors.white,fontSize: 40),),
+                              child: Text('Home',style: TextStyle(color: canvasColor,fontSize: 40),),
                             );
                         }
                       },
@@ -110,20 +139,20 @@ class SideBarXExample extends StatelessWidget {
             borderRadius: BorderRadius.only(topRight: Radius.circular(20),bottomRight: Radius.circular(20))
         ),
         iconTheme: IconThemeData(
-          color: Colors.white,
+          color: scaffoldBackgroundColor,
         ),
-        selectedTextStyle: const TextStyle(color: Colors.white),
+        selectedTextStyle: const TextStyle(color: scaffoldBackgroundColor),
 
       ),
       extendedTheme: const SidebarXTheme(
           width: 250
       ),
 
-      footerDivider: Divider(color:  Colors.white.withOpacity(0.8), height: 1),
+      footerDivider: Divider(color: scaffoldBackgroundColor, height: 1),
       headerBuilder: (context,extended){
         return const  SizedBox(
           height: 100,
-          child: Icon(Icons.person,size: 60,color: Colors.white,),
+          child: Icon(Icons.person,size: 60,color: scaffoldBackgroundColor,),
         );
       },
 
@@ -132,6 +161,7 @@ class SideBarXExample extends StatelessWidget {
         SidebarXItem(icon: Icons.chat_bubble_outline_outlined, label: 'Sakha'),
         SidebarXItem(icon: Icons.edit_note, label: 'Report'),
         SidebarXItem(icon: Icons.dark_mode, label: 'Light/Dark Mode'),
+        SidebarXItem(icon: Icons.logout, label: 'Sign Out'),
       ],
     );
   }
