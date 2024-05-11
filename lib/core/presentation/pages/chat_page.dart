@@ -115,8 +115,8 @@ class _ChatPageState extends State<ChatPage> {
 
     final userName=Provider.of<AuthAPI>(context, listen: false).getUsername()?? "";
 
-     final model= GenerativeModel(model: 'gemini-pro', apiKey: apiKey,generationConfig: GenerationConfig(maxOutputTokens: 100));
-  //  final model= GenerativeModel(model: 'gemini-pro', apiKey: apiKey);
+     //final model= GenerativeModel(model: 'gemini-pro', apiKey: apiKey,generationConfig: GenerationConfig(maxOutputTokens: 100));
+   final model= GenerativeModel(model: 'gemini-pro', apiKey: apiKey);
     final chat = model.startChat(
         history: [
       Content.text('hi'),
@@ -152,6 +152,7 @@ class _ChatPageState extends State<ChatPage> {
     }
     else
     {
+      addMessage("can you repeat what you said again? Sorry I couldn't receive it correctly earlier", false);
       print(response);
     }
   }

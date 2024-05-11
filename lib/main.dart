@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'appwrite/auth_api.dart';
-import 'package:major_project/chatbot/presentation/pages/login_page.dart';
-import 'package:major_project/chatbot/presentation/pages/signup_page.dart';
-import 'package:major_project/chatbot/presentation/pages/chat_page.dart';
-import 'package:major_project/chatbot/presentation/pages/home_page.dart';
+
 
 import 'constants.dart';
+import 'core/presentation/pages/home_page.dart';
+import 'core/presentation/pages/login_page.dart';
 
 void main() {
 

@@ -29,6 +29,7 @@ class _MessagesState extends State<Messages> {
     final scrollController = scrollControllerProvider.scrollController;
 
     return ListView.separated(
+      shrinkWrap: true,
       controller: scrollController,
       itemBuilder:(context,index){
         return Container(
@@ -40,7 +41,7 @@ class _MessagesState extends State<Messages> {
                 Column(
                   crossAxisAlignment: widget.messages![index].data['isUser'] ? CrossAxisAlignment.end : CrossAxisAlignment.start,
                   children: [
-                    Text(widget.messages![index].data['isUser']?"You" : "Sakha"),
+                    Text(widget.messages![index].data['isUser']?"You" : "Sakha",style: TextStyle(color: canvasColor,fontSize: 12)),
                     Container(
                         constraints: BoxConstraints(maxWidth: width*0.37),
                         padding: EdgeInsets.symmetric(

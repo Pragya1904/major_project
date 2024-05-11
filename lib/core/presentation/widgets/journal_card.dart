@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:major_project/chatbot/presentation/pages/journal_page.dart';
+
 
 class JournalCard extends StatelessWidget {
   final String date;
