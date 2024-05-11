@@ -169,7 +169,7 @@ class SideBarXExample extends StatelessWidget {
         SidebarXItem(icon: Icons.note_alt_outlined, label: 'Journals',),
         SidebarXItem(icon: Icons.chat_bubble_outline_outlined, label: 'Sakha'),
         SidebarXItem(icon: Icons.edit_note, label: 'Report'),
-        SidebarXItem(icon: Icons.dark_mode, label: 'Light/Dark Mode'),
+       // SidebarXItem(icon: Icons.dark_mode, label: 'Light/Dark Mode'),
         SidebarXItem(icon: Icons.logout, label: 'Sign Out'),
       ],
     );
