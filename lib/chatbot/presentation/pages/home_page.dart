@@ -55,7 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
             return Scaffold(
                 key: _key,
                 appBar: isSmallScreen ? AppBar(
-                  title: Text('SideBarX Example'),
+                  title: Text('Mental Health Analyzer'),
                   leading: IconButton(
                     onPressed: (){
                       _key.currentState?.openDrawer();

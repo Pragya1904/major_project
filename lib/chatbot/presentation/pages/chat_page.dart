@@ -59,6 +59,8 @@ class _ChatPageState extends State<ChatPage> {
       // ScaffoldMessenger.of(context).showSnackBar(snackbar);
       _controller.clear();
       loadMessages();
+
+
     } on AppwriteException catch (e) {
       showAlert(title: 'Error', text: e.message.toString());
     }
@@ -101,6 +103,7 @@ class _ChatPageState extends State<ChatPage> {
     print("input is $userMessage");
     if (userMessage.isNotEmpty) {
       try {
+        Provider.of<AuthAPI>(context, listen: false).scrollToBottom();
         addMessage(userMessage, true);
         // setState(() {
         //   _messages.add(Message(isUser: true, message: userMessage, date: DateTime.now()));
@@ -110,27 +113,25 @@ class _ChatPageState extends State<ChatPage> {
       }
     }
 
+    final userName=Provider.of<AuthAPI>(context, listen: false).getUsername()?? "";
 
-    // final model= GenerativeModel(model: 'gemini-pro', apiKey: apiKey,generationConfig: GenerationConfig(maxOutputTokens: 100));
-    final model= GenerativeModel(model: 'gemini-pro', apiKey: apiKey);
+     final model= GenerativeModel(model: 'gemini-pro', apiKey: apiKey,generationConfig: GenerationConfig(maxOutputTokens: 100));
+  //  final model= GenerativeModel(model: 'gemini-pro', apiKey: apiKey);
     final chat = model.startChat(
-    //     history: [
-    //   Content.text('hi'),
-    //   Content.model([TextPart('Hi there! 👋 How can I help brighten your day? �')]),
-    //   Content.text('I\'m sad'),
-    //   Content.model([TextPart('Oh no, I\'m so sorry to hear that you\'re feeling sad. 😔 Would you like to talk about what\'s making you feel this way? Sometimes just expressing what\'s going on can help.\n If you\'d rather not talk about it, that\'s totally okay too! We can find another way to lift your spirits. Maybe a funny video, a calming breathing exercise, or some inspiring quotes? Just let me know what you need. ❤')]),
-    //   Content.text(' what is your name'),
-    //   Content.model([TextPart('My name is Musa! It means "Moses" in Arabic and is said to signify someone who is drawn from the water, just like baby Moses was from the Nile River. I think it\'s quite fitting because I hope to be a source of support and comfort, like a safe harbor in a storm. 😌 What\'s your name?')]),
-    //   Content.text('My name is prajju'),
-    //   Content.model([TextPart(' Prajju, that\'s a lovely name! 😊 It has a nice ring to it. Does it have a special meaning?\n And just to be sure, is it pronounced as "Pra-ju" or "Pra-joo"? I want to make sure I say it right. �')]),
-    //   Content.text(' it\'s double j u'),
-    //   Content.model([TextPart('Prajj-u, got it! 👍 Thank you for letting me know. \n So, Prajj-u, what would you like to do today? Is there anything I can do to help lift your spirits a bit?')]),
-    //
-    // ]
-      history: [
-        Content.text('Act like Gojo satoru from jujutsu kaisen for the messages I\' send after this'),
-        Content.model([TextPart('Okay. I\'ll act like gojo satoru from jujutsu kaisen')])
-      ]
+        history: [
+      Content.text('hi'),
+      Content.model([TextPart('Hi there! 👋 How can I help brighten your day? �')]),
+      Content.text('I\'m sad'),
+      Content.model([TextPart('Oh no, I\'m so sorry to hear that you\'re feeling sad. 😔 Would you like to talk about what\'s making you feel this way? Sometimes just expressing what\'s going on can help.\n If you\'d rather not talk about it, that\'s totally okay too! We can find another way to lift your spirits. Maybe a funny video, a calming breathing exercise, or some inspiring quotes? Just let me know what you need. ❤')]),
+      Content.text(' what is your name'),
+      Content.model([TextPart('My name is Sakha! It means "Close friend" or "associate" in Sanskrit and I think it\'s quite fitting because I hope to be a source of support and comfort, like a safe harbor in a storm. 😌 What\'s your name?')]),
+      Content.text('My name is $userName'),
+      // Content.model([TextPart(' Prajju, that\'s a lovely name! 😊 It has a nice ring to it. Does it have a special meaning?\n And just to be sure, is it pronounced as "Pra-ju" or "Pra-joo"? I want to make sure I say it right. �')]),
+      // Content.text(' it\'s double j u'),
+      Content.model([TextPart('$userName, got it! 👍 Thank you for letting me know. \n So, $userName, what would you like to do today? Is there anything I can do to help lift your spirits a bit?')]),
+
+    ]
+
     );
     var content,response;
 
@@ -206,12 +207,6 @@ class _ChatPageState extends State<ChatPage> {
     width=MediaQuery.of(context).size.height;
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Sakha - Your true Buddy"),
-        actions: [
-          IconButton(onPressed: signOut, icon: const Icon(Icons.logout))
-        ],
-      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Provider.of<AuthAPI>(context, listen: false).scrollToBottom();

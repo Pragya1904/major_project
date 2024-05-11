@@ -37,29 +37,35 @@ class _MessagesState extends State<Messages> {
               mainAxisAlignment: widget.messages![index].data['isUser'] ? MainAxisAlignment.end : MainAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Container(
-                    constraints: BoxConstraints(maxWidth: width*0.37),
-                    padding: EdgeInsets.symmetric(
-                        vertical: 14, horizontal: 14),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(
-                          20,
-                        ),
-                        topRight: Radius.circular(20),
-                        bottomRight: Radius.circular(
-                            widget.messages![index].data['isUser']
-                                ? 0
-                                : 20),
-                        topLeft: Radius.circular(
-                            widget.messages![index].data['isUser']
-                                ? 20
-                                : 0),
-                      ),
-                      color:  widget.messages![index].data['isUser']
-                          ? userMsgBubbleColor
-                          : botMsgBubbleColor,),
-                    child: Text(widget.messages![index].data['messageText'],softWrap: true,maxLines: 20,))
+                Column(
+                  crossAxisAlignment: widget.messages![index].data['isUser'] ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+                  children: [
+                    Text(widget.messages![index].data['isUser']?"You" : "Sakha"),
+                    Container(
+                        constraints: BoxConstraints(maxWidth: width*0.37),
+                        padding: EdgeInsets.symmetric(
+                            vertical: 7, horizontal: 14),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(
+                              20,
+                            ),
+                            topRight: Radius.circular(20),
+                            bottomRight: Radius.circular(
+                                widget.messages![index].data['isUser']
+                                    ? 0
+                                    : 20),
+                            topLeft: Radius.circular(
+                                widget.messages![index].data['isUser']
+                                    ? 20
+                                    : 0),
+                          ),
+                          color:  widget.messages![index].data['isUser']
+                              ? userMsgBubbleColor
+                              : botMsgBubbleColor,),
+                        child: Text(widget.messages![index].data['messageText'],softWrap: true,maxLines: 20,)),
+                  ],
+                )
               ]
           ),
         );
