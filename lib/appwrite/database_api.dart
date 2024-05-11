@@ -70,6 +70,31 @@ class DatabaseAPI {
     
   }
 
+  Future<DocumentList> fetchWeekReports(String userid, DateTime date) {
+
+
+    DateTime startOfWeek = date.subtract(Duration(days: date.weekday - 1));
+    DateTime left = DateTime(startOfWeek.year, startOfWeek.month, startOfWeek.day, 12, 0, 0, 0);
+    DateTime endOfWeek = date.add(Duration(days: DateTime.daysPerWeek - date.weekday));
+    DateTime right = DateTime(endOfWeek.year, endOfWeek.month, endOfWeek.day, 12, 0, 0, 0);
+
+    print('\n\n');
+    print(startOfWeek.toString() + '\n' + endOfWeek.toString());
+    print('\n');
+
+    return databases.listDocuments(
+        databaseId: APPWRITE_DATABASE_ID,
+        collectionId: COLLECTION_REPORTS,
+        queries: [
+          Query.equal('user_id', [userid]),
+          Query.greaterThanEqual('datetime', left.toString()),
+          Query.lessThanEqual('datetime', right.toString()),
+        ]
+
+    );
+
+  }
+
   Future<DocumentList> getJournals(String userid) {
 
     return databases.listDocuments(

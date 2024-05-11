@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 //root
 const primaryColor = Color(0xFF6252DA);
 const canvasColor = Color(0xFF2E2E48);
-const scaffoldBackgroundColor = Color(0xffD8BFD8);
+const scaffoldBackgroundColor = Color(0xff5fb4be);
 // Colors.purple.shade50;
 
 //appwrite
@@ -27,5 +27,5 @@ const textFieldBgColor = Colors.grey;
 const textFieldTextColor = Colors.white;
 
 //messages_page
-const userMsgBubbleColor = Color(0xff9B7FF6);
+const userMsgBubbleColor = Color(0xff2e625b);
 const botMsgBubbleColor = Color(0xff0D0F27);

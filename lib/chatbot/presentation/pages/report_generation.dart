@@ -1,5 +1,6 @@
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
+import 'package:intl/intl.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:major_project/appwrite/auth_api.dart';
 import 'package:major_project/appwrite/database_api.dart';
@@ -12,11 +13,19 @@ class ReportGeneration {
   final String userid;
   late DateTime selectedDay;
   final database = DatabaseAPI();
-  late List<Document>? messages = [];
+  List<Document>? messages = [];
+  List<Document>? weekReports = [];
+  List<double> weekDayScores = [0,0,0,0,0,0,0];
   String journalText = "";
   final model= GenerativeModel(model: 'gemini-pro', apiKey: "AIzaSyDY6juMaNQ8Xfh4XzZcZpWEQf97_mM6M_E");
 
   String fetchMessagesFromDocuments() {
+
+    for(Document d in weekReports!) {
+      DateTime date = DateTime.parse(d.data['datetime']);
+      weekDayScores[date.weekday - 1] = d.data['score'];
+    }
+
     String fetchedMessages = "";
     print('messages length = ' + (messages!.length).toString());
 
@@ -32,8 +41,20 @@ class ReportGeneration {
     return fetchedMessages;
   }
 
+  getFullWeekReports() async {
+
+    try {
+      final value = await database.fetchWeekReports(userid, selectedDay);
+      weekReports = value.documents;
+    } catch(e) {
+      print('error fetching week reports in report generation');
+      print(e);
+    }
+
+  }
+
   fetchDataFromDatabase() async {
-    print('fetching data of ' + selectedDay.toString());
+
     try {
       final value = await database.getDateWiseMessages(userid,selectedDay);
       messages = value.documents;
@@ -70,7 +91,8 @@ class ReportGeneration {
 
     Map<String,dynamic> data = {
       'score' : 0,
-      'highlight' : "There is no text to analyze"
+      'highlight' : "There is no text to analyze",
+      'weeklyReport' : weekDayScores,
     };
 
     if(s.isEmpty) {
@@ -105,6 +127,7 @@ class ReportGeneration {
 
             //store report in appwrite only if selected day is not today
             if(isSameDay(selectedDay, DateTime.now()) == false) await database.addReport(score: data['score'], highlight: data['highlight'], reportTime: selectedDay);
+            data['weeklyReport'][selectedDay.weekday - 1] =  data['score'];
 
             return data;
           } catch (error) {
@@ -130,8 +153,17 @@ class ReportGeneration {
   Future< Map<String,dynamic> > generateReport(DateTime selectedDay) async {
     this.selectedDay = selectedDay;
 
+    Map<String,dynamic> m;
+
     await fetchDataFromDatabase();
-    return await talkWithGemini();
+    await getFullWeekReports();
+
+    m = await talkWithGemini();
+    weekDayScores = [0,0,0,0,0,0,0];
+
+
+    return m;
+
   }
 
 }

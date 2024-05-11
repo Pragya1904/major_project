@@ -1,3 +1,4 @@
+import 'package:appwrite/models.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:major_project/appwrite/auth_api.dart';
@@ -24,6 +25,7 @@ class _ReportPageState extends State<ReportPage> {
   DateTime _selectedDay = DateTime.now();
   DateTime _focusedDay = DateTime.now();
   CalendarFormat _calendarFormat = CalendarFormat.week;
+  late List<double> weeklyReport;
 
   @override
   void initState() {
@@ -37,30 +39,23 @@ class _ReportPageState extends State<ReportPage> {
   }
 
   Future<String> getReport() async {
+
     Map<String,dynamic> reportScoreAndHighlight = await report.generateReport(_selectedDay);
     print('reportScoreAndHighlight : $reportScoreAndHighlight');
     mentalHealthScore = reportScoreAndHighlight['score'];
     mentalHealthDayHighlight = reportScoreAndHighlight['highlight'];
+    weeklyReport = reportScoreAndHighlight['weeklyReport'];
     return 'Data loaded';
   }
 
   Widget reportPage() {
-
-    List<double> weeklyReport = [
-      5,
-      10,
-      8,
-      3,
-      0,
-      1,
-      9,
-    ];
 
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           children: [
             TableCalendar(
+              startingDayOfWeek: StartingDayOfWeek.monday,
               firstDay: DateTime.utc(2024, 1, 1),
               lastDay: DateTime.utc(2030, 3, 14),
               focusedDay: _focusedDay,
@@ -158,7 +153,7 @@ class _ReportPageState extends State<ReportPage> {
                 SizedBox(
                     height: MediaQuery.of(context).size.width * 0.3,
                     width: MediaQuery.of(context).size.width * 0.4,
-                    child: MyBarGraph(weeklyReport: weeklyReport,)
+                    child: MyBarGraph(weeklyReport: weeklyReport)
                 )
               ],
             ),
