@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class JournalPage extends StatefulWidget {
-  final String date;
+  final DateTime date;
   final String bodyText;
 
   const JournalPage({Key? key, required this.date, required this.bodyText})
@@ -52,12 +52,12 @@ class _JournalPageState extends State<JournalPage> {
     );
   }
 
-  bool isDateToday(String dateString) {
-    DateTime date = DateTime.parse(dateString);
+  bool isDateToday(DateTime dateString) {
+//  DateTime date = DateTime.parse(dateString);
     DateTime today = DateTime.now();
-    return date.year == today.year &&
-        date.month == today.month &&
-        date.day == today.day;
+    return dateString.year == today.year &&
+        dateString.month == today.month &&
+        dateString.day == today.day;
   }
 
   void _saveJournalEntry(String entry) {
