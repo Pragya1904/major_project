@@ -51,7 +51,7 @@ class _JournalListPageState extends State<JournalListPage> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-
+          Navigator.push(context,MaterialPageRoute(builder: (context) => JournalPage(date: DateTime.now(), bodyText: "",)));
         },
         child: const Icon(Icons.edit_outlined),
       ),
@@ -74,7 +74,7 @@ class _JournalListPageState extends State<JournalListPage> {
                           return JournalCard(
                             date:  '${day.day} $monthName',
                             ontap: () {
-                              Navigator.push(context,MaterialPageRoute(builder: (context) => JournalPage(date: dateInText, bodyText: bodyText,)));
+                              Navigator.push(context,MaterialPageRoute(builder: (context) => JournalPage(date: day, bodyText: bodyText,)));
                             },
                           );
                         }
