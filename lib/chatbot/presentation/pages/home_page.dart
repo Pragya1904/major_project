@@ -72,11 +72,11 @@ class _MyHomePageState extends State<MyHomePage> {
                       builder: (context,child){
                         switch(_controller.selectedIndex){
                           case 0: _key.currentState?.closeDrawer();
-                          return ReportPage();
-                          case 1: _key.currentState?.closeDrawer();
                           return ChatPage();
-                          case 2: _key.currentState?.closeDrawer();
+                          case 1: _key.currentState?.closeDrawer();
                           return JournalListPage();
+                          case 2: _key.currentState?.closeDrawer();
+                          return ReportPage();
                           case 3: _key.currentState?.closeDrawer();
                           return Center(
                             child: Text('Theme',style: TextStyle(color: Colors.white,fontSize: 40),),
@@ -128,8 +128,8 @@ class SideBarXExample extends StatelessWidget {
       },
 
       items: const [
-        SidebarXItem(icon: Icons.note_alt_outlined, label: 'Journals',),
         SidebarXItem(icon: Icons.chat_bubble_outline_outlined, label: 'Sakha'),
+        SidebarXItem(icon: Icons.note_alt_outlined, label: 'Journals',),
         SidebarXItem(icon: Icons.edit_note, label: 'Report'),
         SidebarXItem(icon: Icons.dark_mode, label: 'Light/Dark Mode'),
       ],
