@@ -1,16 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'appwrite/auth_api.dart';
+import 'package:major_project/chatbot/presentation/pages/login_page.dart';
+import 'package:major_project/chatbot/presentation/pages/signup_page.dart';
 import 'package:major_project/chatbot/presentation/pages/chat_page.dart';
+import 'package:major_project/chatbot/presentation/pages/home_page.dart';
 
 import 'constants.dart';
 
 void main() {
-  runApp(const MyApp());
+
+  runApp(
+    ChangeNotifierProvider(
+      create: ((context) => AuthAPI()), child: const MyApp()
+    )
+  );
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
+
+    final value = context.watch<AuthAPI>().status;
+    print('TOP CHANGE Value changed to: $value!');
+
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
@@ -20,7 +34,13 @@ class MyApp extends StatelessWidget {
           scaffoldBackgroundColor: scaffoldBgColor
 
       ),
-      home: const ChatPage(),
+      home: value == AuthStatus.uninitialized
+          ? const Scaffold(
+        body: Center(child: CircularProgressIndicator()),
+      )
+          : value == AuthStatus.authenticated
+          ? const HomePage()
+          : const LoginPage(),
     );
   }
 }
