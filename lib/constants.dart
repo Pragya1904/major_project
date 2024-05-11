@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
 
+
+//root
+const primaryColor = Color(0xFF6252DA);
+const canvasColor = Color(0xFF2E2E48);
+const scaffoldBackgroundColor = Color(0xffD8BFD8);
+// Colors.purple.shade50;
+
 //appwrite
 const String APPWRITE_PROJECT_ID = "6637ad0b002483ef1fb6";
 const String APPWRITE_URL = "https://cloud.appwrite.io/v1";
@@ -20,5 +27,5 @@ const textFieldBgColor = Colors.grey;
 const textFieldTextColor = Colors.white;
 
 //messages_page
-const userMsgBubbleColor = Color(0xff2877ef);
-const botMsgBubbleColor = Color(0xff232b3f);
+const userMsgBubbleColor = Color(0xff9B7FF6);
+const botMsgBubbleColor = Color(0xff0D0F27);

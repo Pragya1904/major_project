@@ -42,7 +42,9 @@ class AuthAPI extends ChangeNotifier {
         .setSelfSigned();
     account = Account(client);
   }
-
+  String? getUsername() {
+    return _currentUser?.name;
+  }
   void scrollToBottom() {
     _scrollController.animateTo(
       _scrollController.position.maxScrollExtent,
