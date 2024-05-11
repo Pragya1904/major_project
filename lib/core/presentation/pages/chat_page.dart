@@ -115,7 +115,11 @@ class _ChatPageState extends State<ChatPage> {
 
     final userName=Provider.of<AuthAPI>(context, listen: false).getUsername()?? "";
 
+<<<<<<< HEAD:lib/chatbot/presentation/pages/chat_page.dart
      // final model= GenerativeModel(model: 'gemini-pro', apiKey: apiKey,generationConfig: GenerationConfig(maxOutputTokens: 100));
+=======
+     //final model= GenerativeModel(model: 'gemini-pro', apiKey: apiKey,generationConfig: GenerationConfig(maxOutputTokens: 100));
+>>>>>>> dc14eb20d55cf27fb90971c726a52f1e57633a83:lib/core/presentation/pages/chat_page.dart
    final model= GenerativeModel(model: 'gemini-pro', apiKey: apiKey);
     final chat = model.startChat(
         history: [
@@ -154,6 +158,7 @@ class _ChatPageState extends State<ChatPage> {
     }
     else
     {
+      addMessage("can you repeat what you said again? Sorry I couldn't receive it correctly earlier", false);
       print(response);
     }
   }

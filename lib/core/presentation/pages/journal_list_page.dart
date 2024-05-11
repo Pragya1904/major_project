@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:major_project/appwrite/database_api.dart';
-import 'package:major_project/chatbot/presentation/pages/journal_page.dart';
-import 'package:major_project/chatbot/presentation/widgets/journal_card.dart';
 import 'package:provider/provider.dart';
 import 'package:appwrite/models.dart';
 
 import '../../../appwrite/auth_api.dart';
+import '../widgets/journal_card.dart';
+import 'journal_page.dart';
 
 
 class JournalListPage extends StatefulWidget {

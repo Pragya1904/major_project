@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:major_project/chatbot/presentation/pages/chat_page.dart';
-import 'package:major_project/chatbot/presentation/pages/journal_list_page.dart';
-import 'package:major_project/chatbot/presentation/pages/report_page.dart';
+
+import 'package:major_project/core/presentation/pages/report_page.dart';
 import 'package:provider/provider.dart';
 import 'package:sidebarx/sidebarx.dart';
 
 import '../../../appwrite/auth_api.dart';
 import '../../../constants.dart';
+import 'chat_page.dart';
+import 'journal_list_page.dart';
 import 'login_page.dart';
 
 
@@ -75,15 +76,11 @@ class _MyHomePageState extends State<MyHomePage> {
                       builder: (context,child){
                         switch(_controller.selectedIndex){
                           case 0: _key.currentState?.closeDrawer();
-                          return ChatPage();
-                          case 1: _key.currentState?.closeDrawer();
                           return JournalListPage();
+                          case 1: _key.currentState?.closeDrawer();
+                          return ChatPage();
                           case 2: _key.currentState?.closeDrawer();
                           return ReportPage();
-                          // case 3: _key.currentState?.closeDrawer();
-                          // return Center(
-                          //   child: Text('Theme',style: TextStyle(color: canvasColor,fontSize: 40),),
-                          // );
                           case 3: _key.currentState?.closeDrawer();
                           return Center(
                             child: AlertDialog(
@@ -138,10 +135,18 @@ class SideBarXExample extends StatelessWidget {
             color: canvasColor,
             borderRadius: BorderRadius.only(topRight: Radius.circular(20),bottomRight: Radius.circular(20))
         ),
+        hoverColor: primaryColor,
+        hoverIconTheme:  IconThemeData(
+          color: primaryColor,
+        ),
         iconTheme: IconThemeData(
           color: scaffoldBackgroundColor,
         ),
-        selectedTextStyle: const TextStyle(color: scaffoldBackgroundColor),
+        selectedTextStyle: const TextStyle(color: canvasColor),
+        selectedIconTheme: IconThemeData(
+          color: canvasColor,
+        ),
+        selectedItemDecoration: BoxDecoration(color: scaffoldBackgroundColor),
 
       ),
       extendedTheme: const SidebarXTheme(
@@ -157,10 +162,9 @@ class SideBarXExample extends StatelessWidget {
       },
 
       items: const [
-        SidebarXItem(icon: Icons.chat_bubble_outline_outlined, label: 'Sakha'),
         SidebarXItem(icon: Icons.note_alt_outlined, label: 'Journals',),
+        SidebarXItem(icon: Icons.chat_bubble_outline_outlined, label: 'Sakha'),
         SidebarXItem(icon: Icons.edit_note, label: 'Report'),
-        // SidebarXItem(icon: Icons.dark_mode, label: 'Light/Dark Mode'),
         SidebarXItem(icon: Icons.logout, label: 'Sign Out'),
       ],
     );

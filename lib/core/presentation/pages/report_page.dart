@@ -2,7 +2,7 @@ import 'package:appwrite/models.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:major_project/appwrite/auth_api.dart';
-import 'package:major_project/chatbot/presentation/widgets/my_bar_graph.dart';
+import 'package:major_project/core/presentation/widgets/my_bar_graph.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'report_generation.dart';
