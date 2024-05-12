@@ -32,8 +32,8 @@ class _ChatPageState extends State<ChatPage> {
   void initState() {
     super.initState();
     final AuthAPI appwrite = context.read<AuthAPI>();
-    authStatus = appwrite.status;
     userId = appwrite.userid!;
+    authStatus = appwrite.status;
     print("appwrite userid: ${appwrite.userid}");
     _chatFuture = loadMessages();
   }
@@ -180,11 +180,11 @@ class _ChatPageState extends State<ChatPage> {
                 children: [
                   Expanded(child: Container(
                     padding: EdgeInsets.symmetric(horizontal: width*0.02,vertical: height*0.002),
-                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(25),color:  textFieldBgColor,),
+                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(25),color:  canvasColor,),
                     //Color(0xff2877ef),
                     child: TextFormField(
                       controller: _controller,
-                      decoration: InputDecoration(hintText: "Enter your message",border: InputBorder.none),
+                      decoration: InputDecoration(hintText: "Enter your message", hintStyle: TextStyle(color: Colors.white),border: InputBorder.none),
                       style: TextStyle(color: textFieldTextColor,),
                       onFieldSubmitted: (value) {
                         talkWithGemini();
