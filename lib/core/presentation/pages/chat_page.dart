@@ -32,8 +32,8 @@ class _ChatPageState extends State<ChatPage> {
   void initState() {
     super.initState();
     final AuthAPI appwrite = context.read<AuthAPI>();
-    authStatus = appwrite.status;
     userId = appwrite.userid!;
+    authStatus = appwrite.status;
     print("appwrite userid: ${appwrite.userid}");
     _chatFuture = loadMessages();
   }
@@ -94,9 +94,9 @@ class _ChatPageState extends State<ChatPage> {
   }
 
   //pragya's api key
-  // var apiKey="AIzaSyCu_6yYXaaUP1mA7iZUUuyLs9cY2DmjDmg";
-  @override
-  var apiKey="AIzaSyDY6juMaNQ8Xfh4XzZcZpWEQf97_mM6M_E"; //rishabh's api key
+  var apiKey="AIzaSyCu_6yYXaaUP1mA7iZUUuyLs9cY2DmjDmg";
+  // @override
+  // var apiKey="AIzaSyDY6juMaNQ8Xfh4XzZcZpWEQf97_mM6M_E"; //rishabh's api key
 
   Future talkWithGemini() async{
     final userMessage=_controller.text;
@@ -115,10 +115,13 @@ class _ChatPageState extends State<ChatPage> {
 
     final userName=Provider.of<AuthAPI>(context, listen: false).getUsername()?? "";
 
+     // final model= GenerativeModel(model: 'gemini-pro', apiKey: apiKey,generationConfig: GenerationConfig(maxOutputTokens: 100));
      //final model= GenerativeModel(model: 'gemini-pro', apiKey: apiKey,generationConfig: GenerationConfig(maxOutputTokens: 100));
    final model= GenerativeModel(model: 'gemini-pro', apiKey: apiKey);
     final chat = model.startChat(
         history: [
+        Content.text('Keep the length of your responses under 100 words. Always give short empathetic responses like an caring and understanding human being'),
+        Content.model([TextPart('Okay')]),
       Content.text('hi'),
       Content.model([TextPart('Hi there! 👋 How can I help brighten your day? �')]),
       Content.text('I\'m sad'),
@@ -177,11 +180,11 @@ class _ChatPageState extends State<ChatPage> {
                 children: [
                   Expanded(child: Container(
                     padding: EdgeInsets.symmetric(horizontal: width*0.02,vertical: height*0.002),
-                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(25),color:  textFieldBgColor,),
+                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(25),color:  canvasColor,),
                     //Color(0xff2877ef),
                     child: TextFormField(
                       controller: _controller,
-                      decoration: InputDecoration(hintText: "Enter your message",border: InputBorder.none),
+                      decoration: InputDecoration(hintText: "Enter your message", hintStyle: TextStyle(color: Colors.white),border: InputBorder.none),
                       style: TextStyle(color: textFieldTextColor,),
                       onFieldSubmitted: (value) {
                         talkWithGemini();

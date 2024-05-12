@@ -31,8 +31,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           appBarTheme: const AppBarTheme(backgroundColor: appBarThemeColor),
           brightness: Brightness.dark,
-          scaffoldBackgroundColor: scaffoldBgColor
-
+          scaffoldBackgroundColor: scaffoldBgColor,
       ),
       home: value == AuthStatus.uninitialized
           ? const Scaffold(

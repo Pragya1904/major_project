@@ -48,10 +48,16 @@ class _JournalListPageState extends State<JournalListPage> {
 
   @override
   Widget build(BuildContext context) {
+
+    DateTime latestJournalDate = DateTime.parse(journals!.last.data['datetime']);
+    DateTime today = DateTime.now();
+    bool isLatestJournalToday = (latestJournalDate.year == today.year && latestJournalDate.month == today.month && latestJournalDate.day == today.day);
+
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => JournalPage(date: DateTime.now(), bodyText: "")));
+          Navigator.push(context,MaterialPageRoute(builder: (context) => JournalPage(!isLatestJournalToday, journals!.last.$id, date: DateTime.now(), bodyText: isLatestJournalToday ? journals!.last.data['bodyText'] : "",)));
+          
         },
         child: const Icon(Icons.edit_outlined),
       ),
@@ -72,9 +78,10 @@ class _JournalListPageState extends State<JournalListPage> {
                           String monthName = DateFormat('MMMM').format(DateTime(0, day.month));
                           String dateInText = '${day.day} $monthName';
                           return JournalCard(
-                            date:  '${day.day} $monthName',
+                            date:  dateInText,
                             ontap: () {
-                              Navigator.push(context,MaterialPageRoute(builder: (context) => JournalPage(date: day, bodyText: bodyText,)));
+                              bool b = (today.year == day.year && today.month == day.month && today.day == day.day);
+                              Navigator.push(context,MaterialPageRoute(builder: (context) => JournalPage(b, journals![index].$id, date: day, bodyText: bodyText,)));
                             },
                           );
                         }

@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
 import 'auth_api.dart';
@@ -170,6 +172,18 @@ class DatabaseAPI {
           'bodyText' : bodyText,
           'datetime' : temp.toString(),
           'user_id' : auth.userid,
+        }
+    );
+  }
+
+  Future<Document> updateJournal({required String documentid, required String bodyText}) {
+
+    return databases.updateDocument(
+        databaseId: APPWRITE_DATABASE_ID,
+        collectionId: COLLECTION_JOURNALS,
+        documentId: documentid,
+        data: {
+          'bodyText' : bodyText,
         }
     );
   }
