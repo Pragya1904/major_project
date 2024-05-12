@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:major_project/core/presentation/pages/onbording_page.dart';
 import 'package:provider/provider.dart';
 import 'appwrite/auth_api.dart';
 

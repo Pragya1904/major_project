@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart' as models;
 import 'package:major_project/appwrite/auth_api.dart';
+import 'package:major_project/core/presentation/pages/onbording_page.dart';
 import 'package:provider/provider.dart';
 import 'signup_page.dart';
 import 'home_page.dart';
@@ -112,7 +113,7 @@ class _LoginPageState extends State<LoginPage> {
                     Navigator.pushReplacement<void, void>(
                       context,
                       MaterialPageRoute<void>(
-                        builder: (BuildContext context) => const HomePage(),
+                        builder: (BuildContext context) => const OnboardingPage(),
                       ),
                     );
                   },
