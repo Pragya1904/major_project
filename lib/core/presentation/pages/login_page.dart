@@ -21,7 +21,6 @@ class _LoginPageState extends State<LoginPage> {
   late TextEditingController _emailController, _passwordController;
   bool loading = false;
 
-
   signIn() async {
     showDialog(
         context: context,
