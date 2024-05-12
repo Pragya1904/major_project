@@ -19,7 +19,7 @@ class JournalListPage extends StatefulWidget {
 class _JournalListPageState extends State<JournalListPage> {
   final database = DatabaseAPI();
   late String userId;
-  List<Document>? journals = [];
+  List<Document> journals = [];
   late Future<String> _journalFuture;
 
   Future<String> fetchJournals() async {
@@ -49,14 +49,19 @@ class _JournalListPageState extends State<JournalListPage> {
   @override
   Widget build(BuildContext context) {
 
-    DateTime latestJournalDate = DateTime.parse(journals!.last.data['datetime']);
+    bool isLatestJournalToday = false;
     DateTime today = DateTime.now();
-    bool isLatestJournalToday = (latestJournalDate.year == today.year && latestJournalDate.month == today.month && latestJournalDate.day == today.day);
+    if(journals.isNotEmpty) {
+      DateTime latestJournalDate = DateTime.parse(journals.last.data['datetime']);
+      isLatestJournalToday = (latestJournalDate.year == today.year && latestJournalDate.month == today.month && latestJournalDate.day == today.day);
+    }
 
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(context,MaterialPageRoute(builder: (context) => JournalPage(!isLatestJournalToday, journals!.last.$id, date: DateTime.now(), bodyText: isLatestJournalToday ? journals!.last.data['bodyText'] : "",)));
+          Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (context) => JournalPage(!isLatestJournalToday, isLatestJournalToday ? journals.last.$id : "", date: DateTime.now(), bodyText: isLatestJournalToday ? journals.last.data['bodyText'] : "",))
+          );
           
         },
         child: const Icon(Icons.edit_outlined),
@@ -64,24 +69,27 @@ class _JournalListPageState extends State<JournalListPage> {
       body: Center(
         child: SizedBox(
 
-              width: MediaQuery.of(context).size.width * 0.2,
+              width: MediaQuery.of(context).size.width * 0.4,
               child: FutureBuilder<String>(
                 future: _journalFuture,
                 builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
                   Widget w = const Placeholder();
                   if(snapshot.hasData) {
-                    w = ListView.builder(
-                        itemCount: journals!.length,
+                    w = (journals.isEmpty) ? const Center(child : Text('You don\'t have any journals yet!', style: TextStyle(fontSize: 40, color: Colors.black, fontFamily: 'Varela'),)) :
+                        ListView.builder(
+                        itemCount: journals.length,
                         itemBuilder: (context,index) {
-                          DateTime day = DateTime.parse(journals![index].data['datetime']);
-                          String bodyText = journals![index].data['bodyText'];
+                          DateTime day = DateTime.parse(journals[index].data['datetime']);
+                          String bodyText = journals[index].data['bodyText'];
                           String monthName = DateFormat('MMMM').format(DateTime(0, day.month));
                           String dateInText = '${day.day} $monthName';
                           return JournalCard(
                             date:  dateInText,
                             ontap: () {
                               bool b = (today.year == day.year && today.month == day.month && today.day == day.day);
-                              Navigator.push(context,MaterialPageRoute(builder: (context) => JournalPage(b, journals![index].$id, date: day, bodyText: bodyText,)));
+                              Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(builder: (context) => JournalPage(b, journals[index].$id, date: day, bodyText: bodyText,))
+                              );
                             },
                           );
                         }
