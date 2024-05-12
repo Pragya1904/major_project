@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:major_project/appwrite/database_api.dart';
+import 'package:major_project/constants.dart';
 import 'package:provider/provider.dart';
 import 'package:appwrite/models.dart';
 
 import '../../../appwrite/auth_api.dart';
 import '../widgets/journal_card.dart';
 import 'journal_page.dart';
-
 
 class JournalListPage extends StatefulWidget {
   const JournalListPage({super.key});
@@ -24,7 +24,6 @@ class _JournalListPageState extends State<JournalListPage> {
 
   Future<String> fetchJournals() async {
     try {
-
       final value = await database.getJournals(userId);
       setState(() {
         journals = value.documents;
@@ -34,7 +33,6 @@ class _JournalListPageState extends State<JournalListPage> {
     }
 
     return 'Data Loaded';
-
   }
 
   @override
@@ -43,7 +41,6 @@ class _JournalListPageState extends State<JournalListPage> {
     final AuthAPI appwrite = context.read<AuthAPI>();
     userId = appwrite.userid!;
     _journalFuture = fetchJournals();
-
   }
 
   @override
@@ -73,9 +70,8 @@ class _JournalListPageState extends State<JournalListPage> {
                     ? journals!.last.$id
                     : "",
                 date: DateTime.now(),
-                bodyText: isLatestJournalToday
-                    ? journals!.last.data['bodyText']
-                    : "",
+                bodyText:
+                    isLatestJournalToday ? journals!.last.data['bodyText'] : "",
               ),
             ),
           );
@@ -94,43 +90,41 @@ class _JournalListPageState extends State<JournalListPage> {
             future: _journalFuture,
             builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
               Widget w = const Placeholder();
+
               if (snapshot.hasData) {
                 w = ListView.builder(
-                  itemCount: journals != null ? journals!.length : 0,
-                  itemBuilder: (context, index) {
-                    if (journals != null && journals!.isNotEmpty) {
-                      DateTime day =
-                      DateTime.parse(journals![index].data['datetime']);
-                      String bodyText = journals![index].data['bodyText'];
-                      String monthName =
-                      DateFormat('MMMM').format(DateTime(0, day.month));
-                      String dateInText = '${day.day} $monthName';
-                      return JournalCard(
-                        date: dateInText,
-                        ontap: () {
-                          bool b = (today.year == day.year &&
-                              today.month == day.month &&
-                              today.day == day.day);
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => JournalPage(
-                                b,
-                                journals != null && journals!.isNotEmpty
-                                    ? journals![index].$id
-                                    : "",
-                                date: day,
-                                bodyText: bodyText,
+                    itemCount: journals != null ? journals!.length : 0,
+                    itemBuilder: (context, index) {
+                      if (journals != null && journals!.isNotEmpty) {
+                        DateTime day =
+                            DateTime.parse(journals![index].data['datetime']);
+                        String bodyText = journals![index].data['bodyText'];
+                        String monthName =
+                            DateFormat('MMMM').format(DateTime(0, day.month));
+                        String dateInText = '${day.day} $monthName';
+                        return JournalCard(
+                          date: dateInText,
+                          ontap: () {
+                            bool b = (today.year == day.year &&
+                                today.month == day.month &&
+                                today.day == day.day);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => JournalPage(
+                                  b,
+                                  journals != null && journals!.isNotEmpty
+                                      ? journals![index].$id
+                                      : "",
+                                  date: day,
+                                  bodyText: bodyText,
+                                ),
                               ),
-                            ),
-                          );
-                        },
-                      );
-                    } else {
-                      return Container(); // Return an empty container if journals list is empty
-                    }
-                  },
-                );
+                            );
+                          },
+                        );
+                      }
+                    });
               } else if (snapshot.hasError) {
                 w = Center(
                   child: Column(
@@ -145,6 +139,28 @@ class _JournalListPageState extends State<JournalListPage> {
                         padding: const EdgeInsets.only(top: 16),
                         child: Text('Error: ${snapshot.error}'),
                       ),
+                    ],
+                  ),
+                );
+              } else if (!snapshot.hasData) {
+                w = Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        height: MediaQuery.of(context).size.height * 0.2,
+                        width: MediaQuery.of(context).size.height,
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                          image: AssetImage("assets/emptyJournal.gif"),
+                        )),
+                      ),
+                      Text(
+                        "Whether it's sunny, stormy, or somewhere in between, jot down your mood. Let's map your emotional journey!",
+                        style:
+                            TextStyle(color: canvasColor, fontSize: 15,letterSpacing: 2, fontFamily: 'Vanera'),
+                      )
                     ],
                   ),
                 );
