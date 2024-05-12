@@ -92,7 +92,30 @@ class _JournalListPageState extends State<JournalListPage> {
               Widget w = const Placeholder();
 
               if (snapshot.hasData) {
-                w =  ListView.builder(
+                w = (journals!.isEmpty) ?
+                    Center(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            height: MediaQuery.of(context).size.height * 0.2,
+                            width: MediaQuery.of(context).size.height,
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage("assets/emptyJournal.gif"),
+                                )),
+                          ),
+                          Text(
+                            "Whether it's sunny, stormy, or somewhere in between, jot down your mood. Let's map your emotional journey!",
+                            style:
+                            TextStyle(color: canvasColor, fontSize: 15,letterSpacing: 2, fontFamily: 'Vanera'),
+                          )
+                        ],
+                      ),
+                    )
+                    :
+                    ListView.builder(
                     itemCount: journals != null ? journals!.length : 0,
                     itemBuilder: (context, index) {
                       if (journals != null && journals!.isNotEmpty) {
