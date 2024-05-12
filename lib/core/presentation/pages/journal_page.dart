@@ -93,49 +93,57 @@ class _JournalPageState extends State<JournalPage> {
   Widget build(BuildContext context) {
 
     double screenWidth = MediaQuery.of(context).size.width;
-    return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Text('Journal'),
-        actions: [
-          if (_isEditing)
-            IconButton(
-              icon: const Icon(Icons.save),
-              onPressed: _saveJournalEntry,
-            ),
-        ],
-      ),
-      backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-        child:
-        Expanded(
-          child: Center(
-            child: Column(
-              children: [
-                Text(_isEditing ? "How was your day ?" : getFormattedDate(), style: TextStyle(fontSize: 80, color: Colors.black, fontFamily: 'Varela'),),
-                Container(
-                  width: screenWidth * 0.6,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    // border: Border.all(color: Colors.black),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 60.0,
-                      vertical: 40.0,
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (didPop) {
+        if(!didPop) {
+          Navigator.pop(context,"refresh");
+        }
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          title: Text('Journal'),
+          actions: [
+            if (_isEditing)
+              IconButton(
+                icon: const Icon(Icons.save),
+                onPressed: _saveJournalEntry,
+              ),
+          ],
+        ),
+        backgroundColor: Colors.white,
+        body: SingleChildScrollView(
+          child:
+          Expanded(
+            child: Center(
+              child: Column(
+                children: [
+                  Text(_isEditing ? "How was your day ?" : getFormattedDate(), style: TextStyle(fontSize: 80, color: Colors.black, fontFamily: 'Varela'),),
+                  Container(
+                    width: screenWidth * 0.6,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      // border: Border.all(color: Colors.black),
                     ),
-                    child: TextField(
-                      controller: _journalEntryController,
-                      maxLines: null,
-                      enabled: _isEditing,
-                      decoration: InputDecoration(
-                        hintText: 'Write your journal entry here...',
-                        border: InputBorder.none,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 60.0,
+                        vertical: 40.0,
+                      ),
+                      child: TextField(
+                        controller: _journalEntryController,
+                        maxLines: null,
+                        enabled: _isEditing,
+                        decoration: InputDecoration(
+                          hintText: 'Write your journal entry here...',
+                          border: InputBorder.none,
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
