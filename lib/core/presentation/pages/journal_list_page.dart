@@ -100,14 +100,14 @@ class _JournalListPageState extends State<JournalListPage> {
                         children: [
                           Container(
                             height: MediaQuery.of(context).size.height * 0.2,
-                            width: MediaQuery.of(context).size.height,
+                            width: MediaQuery.of(context).size.width,
                             decoration: BoxDecoration(
                                 image: DecorationImage(
                                   image: AssetImage("assets/emptyJournal.gif"),
                                 )),
                           ),
-                          Text(
-                            "Whether it's sunny, stormy, or somewhere in between, jot down your mood. Let's map your emotional journey!",
+                          Text("Your Mood Journal Awaits it's First Entry ",
+                          //  "Whether it's sunny, stormy, or somewhere in between, jot down your mood. Let's map your emotional journey!",
                             style:
                             TextStyle(color: canvasColor, fontSize: 15,letterSpacing: 2, fontFamily: 'Vanera'),
                           )
