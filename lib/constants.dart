@@ -5,7 +5,17 @@ import 'package:flutter/material.dart';
 const primaryColor = Color(0xFF6252DA);
 const canvasColor = Color(0xFF2E2E48);
 const scaffoldBackgroundColor = Color(0xffC5C4FE);
-// Colors.purple.shade50;
+                        // Colors.purple.shade50;
+
+//gradient in  loader screens
+ var radialGradient = RadialGradient(
+            center: Alignment.center,
+            radius: 1.5,
+            colors: [
+            Color(0xFF2E2E48).withOpacity(0.5),
+            ],
+            stops: [1.0],
+          );
 
 //appwrite
 const String APPWRITE_PROJECT_ID = "6637ad0b002483ef1fb6";

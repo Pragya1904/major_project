@@ -1,6 +1,8 @@
 import 'package:appwrite/models.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:major_project/core/presentation/pages/home_page.dart';
+import 'package:major_project/core/presentation/pages/journal_list_page.dart';
 import 'package:provider/provider.dart';
 
 import '../../../appwrite/auth_api.dart';
@@ -65,6 +67,15 @@ class _JournalPageState extends State<JournalPage> {
         widget.documentid = d.$id;
       } else {
         await database.updateJournal(documentid: widget.documentid, bodyText: _journalEntryController.text);
+        setState(() {
+          // Navigator.pushReplacement<void, void>(
+          //     context,
+          //     MaterialPageRoute<void>(
+          //     builder: (BuildContext context) =>
+          // const HomePage(),
+          // ));
+          Navigator.pop(context,"refresh");
+        });
       }
     } catch(e) {
       print('error while adding/updating journal : $e');
