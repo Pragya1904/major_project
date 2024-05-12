@@ -119,10 +119,10 @@ class _JournalPageState extends State<JournalPage> {
             child: Center(
               child: Column(
                 children: [
-                  Text(_isEditing ? "How was your day ?" : getFormattedDate(), style: TextStyle(fontSize: 80, color: Colors.black, fontFamily: 'Varela'),),
+                  Text(_isEditing ? "How was your day ?" : getFormattedDate(), style: const TextStyle(fontSize: 80, color: Colors.black, fontFamily: 'Valera'),),
                   Container(
                     width: screenWidth * 0.6,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Colors.white,
                       // border: Border.all(color: Colors.black),
                     ),
@@ -135,7 +135,7 @@ class _JournalPageState extends State<JournalPage> {
                         controller: _journalEntryController,
                         maxLines: null,
                         enabled: _isEditing,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           hintText: 'Write your journal entry here...',
                           border: InputBorder.none,
                         ),
