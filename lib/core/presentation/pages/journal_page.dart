@@ -67,15 +67,6 @@ class _JournalPageState extends State<JournalPage> {
         widget.documentid = d.$id;
       } else {
         await database.updateJournal(documentid: widget.documentid, bodyText: _journalEntryController.text);
-        setState(() {
-          // Navigator.pushReplacement<void, void>(
-          //     context,
-          //     MaterialPageRoute<void>(
-          //     builder: (BuildContext context) =>
-          // const HomePage(),
-          // ));
-          Navigator.pop(context,"refresh");
-        });
       }
     } catch(e) {
       print('error while adding/updating journal : $e');
