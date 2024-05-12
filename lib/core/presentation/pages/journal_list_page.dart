@@ -92,7 +92,7 @@ class _JournalListPageState extends State<JournalListPage> {
               Widget w = const Placeholder();
 
               if (snapshot.hasData) {
-                w = ListView.builder(
+                w =  ListView.builder(
                     itemCount: journals != null ? journals!.length : 0,
                     itemBuilder: (context, index) {
                       if (journals != null && journals!.isNotEmpty) {
