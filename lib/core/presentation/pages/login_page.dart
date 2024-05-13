@@ -115,7 +115,7 @@ class _LoginPageState extends State<LoginPage> {
                           labelStyle: TextStyle(color: canvasColor),
                           hoverColor: canvasColor,
                           hintText: "Enter your email address",
-                          hintStyle: TextStyle(fontSize: 7,color: canvasColor)),
+                          hintStyle: TextStyle(fontSize: 12,color: canvasColor)),
                     ),
                     TextField(
                       controller: _passwordController,
@@ -124,7 +124,7 @@ class _LoginPageState extends State<LoginPage> {
                           labelText: 'Password',
                           labelStyle: TextStyle(color: canvasColor),
                           hintText: "Enter your password",
-                          hintStyle: TextStyle(fontSize: 7,color: canvasColor)),
+                          hintStyle: TextStyle(fontSize: 12,color: canvasColor)),
                       obscureText: true,
                     ),
                     SizedBox(height: 20),

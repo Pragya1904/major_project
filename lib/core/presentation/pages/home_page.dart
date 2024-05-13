@@ -155,9 +155,12 @@ class SideBarXExample extends StatelessWidget {
 
       footerDivider: Divider(color: scaffoldBackgroundColor, height: 1),
       headerBuilder: (context,extended){
-        return const  SizedBox(
+        return  Container(
+          //todo:rishabh fix me
           height: 100,
-          child: Icon(Icons.person,size: 60,color: scaffoldBackgroundColor,),
+          decoration: BoxDecoration(
+              image: DecorationImage(image: AssetImage("assets/logo_wo_slogan.png"),)
+          ),
         );
       },
 
