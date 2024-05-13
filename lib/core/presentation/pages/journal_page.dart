@@ -102,7 +102,7 @@ class _JournalPageState extends State<JournalPage> {
       },
       child: Scaffold(
         appBar: AppBar(
-          automaticallyImplyLeading: false,
+          // automaticallyImplyLeading: false,
           title: Text('Journal'),
           actions: [
             if (_isEditing)
@@ -115,35 +115,33 @@ class _JournalPageState extends State<JournalPage> {
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
           child:
-          Expanded(
-            child: Center(
-              child: Column(
-                children: [
-                  Text(_isEditing ? "How was your day ?" : getFormattedDate(), style: const TextStyle(fontSize: 80, color: Colors.black, fontFamily: 'Valera'),),
-                  Container(
-                    width: screenWidth * 0.6,
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                      // border: Border.all(color: Colors.black),
+          Center(
+            child: Column(
+              children: [
+                Text(_isEditing ? "How was your day ?" : getFormattedDate(), style: const TextStyle(fontSize: 80, color: Colors.black, fontFamily: 'Valera'),),
+                Container(
+                  width: screenWidth * 0.6,
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    // border: Border.all(color: Colors.black),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 60.0,
+                      vertical: 40.0,
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 60.0,
-                        vertical: 40.0,
-                      ),
-                      child: TextField(
-                        controller: _journalEntryController,
-                        maxLines: null,
-                        enabled: _isEditing,
-                        decoration: const InputDecoration(
-                          hintText: 'Write your journal entry here...',
-                          border: InputBorder.none,
-                        ),
+                    child: TextField(
+                      controller: _journalEntryController,
+                      maxLines: null,
+                      enabled: _isEditing,
+                      decoration: const InputDecoration(
+                        hintText: 'Write your journal entry here...',
+                        border: InputBorder.none,
                       ),
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),
