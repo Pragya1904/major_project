@@ -44,6 +44,7 @@ class _JournalListPageState extends State<JournalListPage> {
   }
 
   @override
+  @override
   Widget build(BuildContext context) {
     DateTime latestJournalDate = DateTime.now();
     if (journals != null && journals!.isNotEmpty) {
@@ -91,7 +92,7 @@ class _JournalListPageState extends State<JournalListPage> {
               Widget w = const Placeholder();
 
               if (snapshot.hasData) {
-                w = (journals == null || journals!.isEmpty) ?
+                w = (journals!.isEmpty) ?
                     Center(
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
@@ -115,40 +116,37 @@ class _JournalListPageState extends State<JournalListPage> {
                     )
                     :
                     ListView.builder(
-                    itemCount: journals!.length,
+                    itemCount: journals != null ? journals!.length : 0,
                     itemBuilder: (context, index) {
-                      DateTime day =
-                          DateTime.parse(journals![index].data['datetime']);
-                      String monthName =
-                          DateFormat('MMMM').format(DateTime(0, day.month));
-                      String dateInText = '${day.day} $monthName';
-                      return JournalCard(
-                        date: dateInText,
-                        ontap: () async {
-                          bool b = (today.year == day.year &&
-                              today.month == day.month &&
-                              today.day == day.day);
-                          final result = await Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => JournalPage(
-                                !isLatestJournalToday,
-                                journals != null && journals!.isNotEmpty
-                                    ? journals!.last.$id
-                                    : "",
-                                date: DateTime.now(),
-                                bodyText:
-                                isLatestJournalToday ? journals!.last.data['bodyText'] : "",
+                      if (journals != null && journals!.isNotEmpty) {
+                        DateTime day =
+                            DateTime.parse(journals![index].data['datetime']);
+                        String bodyText = journals![index].data['bodyText'];
+                        String monthName =
+                            DateFormat('MMMM').format(DateTime(0, day.month));
+                        String dateInText = '${day.day} $monthName';
+                        return JournalCard(
+                          date: dateInText,
+                          ontap: () {
+                            bool b = (today.year == day.year &&
+                                today.month == day.month &&
+                                today.day == day.day);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => JournalPage(
+                                  b,
+                                  journals != null && journals!.isNotEmpty
+                                      ? journals![index].$id
+                                      : "",
+                                  date: day,
+                                  bodyText: bodyText,
+                                ),
                               ),
-                            ),
-                          );
-                          if (result != null && result == 'refresh') {
-                            setState(() {
-                              _journalFuture = fetchJournals();
-                            });
-                          }
-                        },
-                      );
+                            );
+                          },
+                        );
+                      }
                     });
               } else if (snapshot.hasError) {
                 w = Center(
