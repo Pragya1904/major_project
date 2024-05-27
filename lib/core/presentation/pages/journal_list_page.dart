@@ -26,7 +26,7 @@ class _JournalListPageState extends State<JournalListPage> {
     try {
       final value = await database.getJournals(userId);
       setState(() {
-        journals = value.documents;
+        journals = value.documents.reversed.toList();
       });
     } catch (e) {
       print(e);
