@@ -43,7 +43,7 @@ class _ChatPageState extends State<ChatPage> {
 
       final value = await database.getMessages(userId);
       setState(() {
-        messages = value.documents;
+        messages = value.documents.reversed.toList();
       });
     } catch (e) {
       print(e);
@@ -103,7 +103,6 @@ class _ChatPageState extends State<ChatPage> {
     print("input is $userMessage");
     if (userMessage.isNotEmpty) {
       try {
-        Provider.of<AuthAPI>(context, listen: false).scrollToBottom();
         addMessage(userMessage, true);
         // setState(() {
         //   _messages.add(Message(isUser: true, message: userMessage, date: DateTime.now()));
@@ -206,6 +205,7 @@ class _ChatPageState extends State<ChatPage> {
     );
   }
 
+  @override
   Widget build(BuildContext context) {
     height=MediaQuery.of(context).size.height;
     width=MediaQuery.of(context).size.height;

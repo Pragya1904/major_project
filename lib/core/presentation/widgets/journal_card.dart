@@ -21,7 +21,8 @@ class JournalCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
             color: canvasColor,
             image: DecorationImage(
-              image: AssetImage(index%2==1 ? "assets/orbs1.jpg" : "assets/orbs0.jpg"), // Replace with your image path
+              // image: AssetImage(index%2==1 ? "assets/orbs1.jpg" : "assets/orbs0.jpg"), // Replace with your image path
+              image: AssetImage("assets/orbs3.png"),
               fit: BoxFit.cover, // Adjust the fit as needed
             ),
           ),

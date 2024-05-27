@@ -47,7 +47,7 @@ class AuthAPI extends ChangeNotifier {
   }
   void scrollToBottom() {
     _scrollController.animateTo(
-      _scrollController.position.maxScrollExtent,
+      _scrollController.position.minScrollExtent,
       duration: Duration(milliseconds: 30),
       curve: Curves.easeOut,
     );

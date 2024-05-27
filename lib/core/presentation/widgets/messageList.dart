@@ -29,6 +29,7 @@ class _MessagesState extends State<Messages> {
     final scrollController = scrollControllerProvider.scrollController;
 
     return ListView.separated(
+      reverse: true,
       shrinkWrap: true,
       controller: scrollController,
       itemBuilder:(context,index){
