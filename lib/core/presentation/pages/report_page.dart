@@ -109,9 +109,9 @@ class _ReportPageState extends State<ReportPage> {
                         alignment: Alignment.center,
                         children: [
 
-                        Text('${mentalHealthScore.toString()}/10'),
+                        Text('${(mentalHealthScore*10).toString()}%',style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 60),),
 
-                        Container(
+                        SizedBox(
                           width: MediaQuery.of(context).size.height * 0.5,
                           height: MediaQuery.of(context).size.height * 0.5,
                           child: PieChart(

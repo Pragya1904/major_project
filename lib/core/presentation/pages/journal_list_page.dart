@@ -46,7 +46,7 @@ class _JournalListPageState extends State<JournalListPage> {
   Widget build(BuildContext context) {
     DateTime latestJournalDate = DateTime.now();
     if (journals != null && journals!.isNotEmpty) {
-      latestJournalDate = DateTime.parse(journals!.last.data['datetime']);
+      latestJournalDate = DateTime.parse(journals![0].data['datetime']);
     }
     DateTime today = DateTime.now();
     bool isLatestJournalToday = false;
@@ -65,11 +65,11 @@ class _JournalListPageState extends State<JournalListPage> {
               builder: (context) => JournalPage(
                 !isLatestJournalToday,
                 journals != null && journals!.isNotEmpty
-                    ? journals!.last.$id
+                    ? journals![0].$id
                     : "",
                 date: DateTime.now(),
                 bodyText: isLatestJournalToday
-                    ? journals!.last.data['bodyText']
+                    ? journals![0].data['bodyText']
                     : "",
               ),
             ),

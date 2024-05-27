@@ -102,14 +102,13 @@ class _JournalPageState extends State<JournalPage> {
       },
       child: Scaffold(
         appBar: AppBar(
-          // automaticallyImplyLeading: false,
+          automaticallyImplyLeading: false,
           title: Text('Journal'),
           actions: [
-            if (_isEditing)
-              IconButton(
-                icon: const Icon(Icons.save),
-                onPressed: _saveJournalEntry,
-              ),
+            IconButton(
+              icon: const Icon(Icons.save),
+              onPressed: _saveJournalEntry,
+            ),
           ],
         ),
         backgroundColor: Colors.white,
@@ -118,7 +117,7 @@ class _JournalPageState extends State<JournalPage> {
           Center(
             child: Column(
               children: [
-                Text(_isEditing ? "How was your day ?" : getFormattedDate(), style: const TextStyle(fontSize: 80, color: Colors.black, fontFamily: 'Valera'),),
+                Text(getFormattedDate(), style: const TextStyle(fontSize: 80, color: Colors.black, fontFamily: 'Valera'),),
                 Container(
                   width: screenWidth * 0.6,
                   decoration: const BoxDecoration(
@@ -133,7 +132,6 @@ class _JournalPageState extends State<JournalPage> {
                     child: TextField(
                       controller: _journalEntryController,
                       maxLines: null,
-                      enabled: _isEditing,
                       decoration: const InputDecoration(
                         hintText: 'Write your journal entry here...',
                         border: InputBorder.none,
